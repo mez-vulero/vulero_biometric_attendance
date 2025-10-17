@@ -1,0 +1,165 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "EBP-.YYYY.-.#####",
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "employee_name",
+  "status",
+  "status_comment",
+  "section_break_enrollment",
+  "biometric_samples",
+  "column_break_meta",
+  "last_verified_on",
+  "last_verified_by",
+  "failed_attempts"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Employee",
+  "options": "Employee",
+  "reqd": 1,
+  "search_index": 1,
+  "unique": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "default": "Pending Approval",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nPending Approval\nApproved\nRejected"
+  },
+  {
+   "fieldname": "status_comment",
+   "fieldtype": "Small Text",
+   "label": "Status Comment"
+  },
+  {
+   "fieldname": "section_break_enrollment",
+   "fieldtype": "Section Break",
+   "label": "Enrollment Data"
+  },
+  {
+   "fieldname": "biometric_samples",
+   "fieldtype": "Table",
+   "label": "Biometric Samples",
+   "options": "Employee Biometric Sample",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_meta",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_verified_on",
+   "fieldtype": "Datetime",
+   "label": "Last Verified On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_verified_by",
+   "fieldtype": "Link",
+   "label": "Last Verified By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "failed_attempts",
+   "fieldtype": "Int",
+   "label": "Failed Attempts",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Vulero Biometric Attendance",
+ "name": "Employee Biometric Profile",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Employee",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "doc_status": 0,
+   "title": "Pending Approval"
+  },
+  {
+   "doc_status": 0,
+   "title": "Approved"
+  },
+  {
+   "doc_status": 0,
+   "title": "Rejected"
+  }
+ ],
+ "track_changes": 1
+}

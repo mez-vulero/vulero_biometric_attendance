@@ -1,0 +1,42 @@
+{
+ "actions": [],
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "label",
+  "cidr",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Label",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cidr",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "CIDR Range",
+   "reqd": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Vulero Biometric Attendance",
+ "name": "Biometric Attendance Network",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "label",
+ "sort_order": "ASC"
+}

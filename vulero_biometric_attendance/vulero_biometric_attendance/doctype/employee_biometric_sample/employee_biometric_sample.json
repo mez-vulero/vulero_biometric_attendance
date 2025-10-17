@@ -1,0 +1,82 @@
+{
+ "actions": [],
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "sample_name",
+  "image",
+  "encoding",
+  "encoding_checksum",
+  "captured_on",
+  "captured_by",
+  "capture_source",
+  "is_active"
+ ],
+ "fields": [
+  {
+   "fieldname": "sample_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Sample Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "in_list_view": 1,
+   "label": "Captured Image",
+   "reqd": 1
+  },
+  {
+   "fieldname": "encoding",
+   "fieldtype": "Long Text",
+   "label": "Face Encoding",
+   "read_only": 1
+  },
+  {
+   "fieldname": "encoding_checksum",
+   "fieldtype": "Data",
+   "label": "Encoding Checksum",
+   "read_only": 1
+  },
+  {
+   "default": "Now",
+   "fieldname": "captured_on",
+   "fieldtype": "Datetime",
+   "label": "Captured On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "captured_by",
+   "fieldtype": "Link",
+   "label": "Captured By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "default": "Webcam",
+   "fieldname": "capture_source",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Capture Source",
+   "options": "\nWebcam\nMobile Camera\nAdmin Upload"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Active Sample"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Vulero Biometric Attendance",
+ "name": "Employee Biometric Sample",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "sample_name",
+ "sort_order": "ASC"
+}

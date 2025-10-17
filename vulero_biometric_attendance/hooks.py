@@ -25,8 +25,10 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/vulero_biometric_attendance/css/vulero_biometric_attendance.css"
-# app_include_js = "/assets/vulero_biometric_attendance/js/vulero_biometric_attendance.js"
+app_include_css = "/assets/vulero_biometric_attendance/css/biometric_checkin.css"
+
+after_install = "vulero_biometric_attendance.install.after_install"
+after_migrate = "vulero_biometric_attendance.install.after_install"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/vulero_biometric_attendance/css/vulero_biometric_attendance.css"
@@ -244,4 +246,3 @@ app_license = "mit"
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
-

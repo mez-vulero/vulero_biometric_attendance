@@ -1,0 +1,100 @@
+.biometric-checkin-page {
+	max-width: 720px;
+	margin: 0 auto;
+	padding: 2rem 1.5rem 3rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.biometric-checkin-card {
+	background-color: var(--card-bg, #fff);
+	border-radius: 12px;
+	padding: 1.75rem;
+	width: 100%;
+	box-shadow: var(--shadow-sm, 0 4px 20px rgba(15, 23, 42, 0.08));
+	display: grid;
+	row-gap: 1.5rem;
+}
+
+.biometric-checkin-page .live-status {
+	margin: 0;
+	border-radius: 10px;
+	font-weight: 500;
+	text-align: center;
+}
+
+.biometric-checkin-card .checkin-status,
+.biometric-checkin-card .shift-status {
+	display: grid;
+	row-gap: 0.25rem;
+}
+
+.biometric-checkin-card .status-label {
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: var(--gray-600, #4b5563);
+}
+
+.biometric-checkin-card .status-value {
+	font-size: 1.25rem;
+	font-weight: 600;
+	color: var(--gray-900, #111827);
+}
+
+.biometric-checkin-card .status-detail {
+	font-size: 0.95rem;
+	color: var(--gray-500, #6b7280);
+}
+
+.biometric-checkin-card .camera-container {
+	border-radius: 12px;
+	overflow: hidden;
+	background: #000;
+	min-height: 260px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.biometric-checkin-card video {
+	width: 100%;
+	height: auto;
+	max-height: 320px;
+	object-fit: cover;
+}
+
+.biometric-checkin-card .actions {
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.biometric-checkin-card .help-text {
+	text-align: center;
+	margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+	.biometric-checkin-page {
+		padding: 1.5rem 1rem 2.5rem;
+	}
+
+	.biometric-checkin-card {
+		padding: 1.5rem;
+	}
+
+	.biometric-checkin-card video {
+		max-height: 260px;
+	}
+
+	.biometric-checkin-card .actions {
+		flex-direction: column;
+	}
+
+	.biometric-checkin-card .actions .btn {
+		width: 100%;
+	}
+}
