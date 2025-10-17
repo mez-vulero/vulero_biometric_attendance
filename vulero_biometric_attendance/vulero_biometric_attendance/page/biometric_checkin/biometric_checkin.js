@@ -72,6 +72,7 @@ vulero_biometric_attendance.pages.BiometricCheckin = class {
 		try {
 			this.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
 			this.video.srcObject = this.stream;
+			this.video.style.transform = "scaleX(-1)";
 			this.set_camera_buttons(true);
 			this.set_status(__("Camera ready. Position your face within the frame."), "info");
 		} catch (error) {
@@ -92,6 +93,7 @@ vulero_biometric_attendance.pages.BiometricCheckin = class {
 		this.stream.getTracks().forEach((track) => track.stop());
 		this.stream = null;
 		this.video.srcObject = null;
+		this.video.style.transform = "";
 		this.set_camera_buttons(false);
 		this.set_status(__("Camera stopped."), "muted");
 	}
