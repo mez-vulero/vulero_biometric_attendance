@@ -221,14 +221,16 @@ vulero_biometric_attendance.pages.BiometricCheckin = class {
 			freeze_message: __("Verifying face and logging attendance..."),
 		});
 
+		const me = this;
+
 		request.then(function (r) {
 			if (!r.message) {
 				return;
 			}
 			const { log_type, time, distance } = r.message;
-			this.fetch_status();
-			this.stop_camera();
-			this.set_status(__("{0} recorded at {1}", [log_type, frappe.datetime.user_to_str(time) || time]), "success");
+			me.fetch_status();
+			me.stop_camera();
+			me.set_status(__("{0} recorded at {1}", [log_type, frappe.datetime.user_to_str(time) || time]), "success");
 			frappe.show_alert({
 				message: __("Recorded {0} at {1} (match score: {2})", [
 					log_type,
@@ -240,10 +242,10 @@ vulero_biometric_attendance.pages.BiometricCheckin = class {
 		});
 
 		request.fail(function (error) {
-			this.stop_camera();
+			me.stop_camera();
 			console.error(error);
 			const message = error && error.exc ? error.exc.split("\n").pop() : __("Unable to complete check-in. Please try again.");
-			this.set_status(message, "danger");
+			me.set_status(message, "danger");
 			frappe.msgprint({
 				indicator: "red",
 				message,
@@ -252,11 +254,11 @@ vulero_biometric_attendance.pages.BiometricCheckin = class {
 		});
 
 		request.always(function () {
-			this.capture_in_progress = false;
-			if (this.stream) {
-				this.set_camera_buttons(true);
+			me.capture_in_progress = false;
+			if (me.stream) {
+				me.set_camera_buttons(true);
 			} else {
-				this.set_camera_buttons(false);
+				me.set_camera_buttons(false);
 			}
 		});
 	}
