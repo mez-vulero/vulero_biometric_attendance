@@ -13,6 +13,12 @@ bench pip install face-recognition
 
 The app automatically pulls the Python dependency via `pyproject.toml`, but the system packages must be present on every bench where the app runs.
 
+If you regenerate assets yourself, build the bundle after installing:
+
+```bash
+bench build
+```
+
 ### Installation
 
 You can install this app using the [bench](https://github.com/frappe/bench) CLI:
@@ -22,6 +28,36 @@ cd $PATH_TO_YOUR_BENCH
 bench get-app $URL_OF_THIS_REPO --branch main
 bench install-app vulero_biometric_attendance
 ```
+
+### Post-install Setup
+
+All structural artefacts (module page, workspace, navbar shortcut) are created automatically during `install-app` and on every `bench migrate`. To finish the configuration, complete the steps below on the target site:
+
+1. **Allowed networks**  
+   Open **Biometric Attendance Settings** and add the CIDR ranges that should be able to perform face check-ins (for example `10.10.0.0/16` for an office LAN or `203.0.113.42/32` for a single public IP).  
+   > Tip: For testing, you can allow `0.0.0.0/0` temporarily, but tighten it before going live.
+
+2. **Reverse proxy headers**  
+   If the site is served behind nginx (default bench setup) or another load balancer, forward the real client IP so the allow-list works.  
+   Example snippet for nginx:
+   ```nginx
+   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+   proxy_set_header X-Real-IP $remote_addr;
+   proxy_set_header X-Forwarded-Proto $scheme;
+   ```
+   Reload nginx and clear the site cache:
+   ```bash
+   sudo nginx -t && sudo systemctl reload nginx
+   bench --site <your-site> clear-cache
+   ```
+
+3. **Face encodings**  
+   Employees can open the **Face Check-In** workspace to enrol themselves. HR managers can review and approve profiles in the **Employee Biometric Profile** list. Only approved profiles participate in matching.
+
+4. **Verification**  
+   - Visit `/app/biometric-checkin`, start the camera, and take a test snapshot.  
+   - Ensure the matching succeeds and the new log appears under **HR > Employee Checkin**.  
+   - If the request is blocked with a 417 error, double-check the IP range and proxy headers.
 
 ### Key Features
 
@@ -38,6 +74,12 @@ bench install-app vulero_biometric_attendance
 | `vulero_biometric_attendance.api.check_in_with_face` | Runs face verification, infers the next log type, and creates an `Employee Checkin` entry. |
 
 Both endpoints enforce the Wi-Fi/IP restrictions defined in **Biometric Attendance Settings**.
+
+### Troubleshooting Checklist
+
+- **417 Expectation Failed** → The server cannot match the request IP to the allow-list. Confirm the public IP (`curl ifconfig.me`) is included and that the reverse proxy is forwarding the headers shown above.
+- **Camera access denied** → Browser blocked media permissions. Grant access or trigger via desktop/mobile settings.
+- **Multiple faces detected / No face detected** → Ensure only one person is within the frame and lighting is adequate.
 
 ### Testing
 
