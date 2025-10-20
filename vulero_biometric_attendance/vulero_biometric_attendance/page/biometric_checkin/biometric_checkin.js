@@ -150,9 +150,9 @@ vulero_biometric_attendance.pages.BiometricCheckin = class {
 
 		const startTimestamp = shift.actual_start || shift.start;
 		const endTimestamp = shift.actual_end || shift.end;
-		const startMoment = frappe.datetime.moment(startTimestamp);
-		const endMoment = frappe.datetime.moment(endTimestamp);
-		const nowMoment = server_time ? frappe.datetime.moment(server_time) : frappe.datetime.moment();
+		const startMoment = moment(startTimestamp);
+		const endMoment = moment(endTimestamp);
+		const nowMoment = server_time ? moment(server_time) : moment();
 
 		const formattedWindow = `${frappe.datetime.str_to_user(startTimestamp)} – ${frappe.datetime.str_to_user(endTimestamp)}`;
 		$window.text(`${shift.name || __("Shift")}: ${formattedWindow}`);
@@ -212,14 +212,16 @@ vulero_biometric_attendance.pages.BiometricCheckin = class {
 		this.set_camera_buttons(true);
 		this.set_status(__("Matching face data…"), "info");
 
-		frappe.call({
+		const request = frappe.call({
 			method: "vulero_biometric_attendance.api.check_in_with_face",
 			args: {
 				image: snapshot,
 			},
 			freeze: true,
 			freeze_message: __("Verifying face and logging attendance..."),
-		}).then((r) => {
+		});
+
+		request.then(function (r) {
 			if (!r.message) {
 				return;
 			}
@@ -235,7 +237,9 @@ vulero_biometric_attendance.pages.BiometricCheckin = class {
 				]),
 				indicator: "green",
 			});
-		}).catch((error) => {
+		});
+
+		request.fail(function (error) {
 			this.stop_camera();
 			console.error(error);
 			const message = error && error.exc ? error.exc.split("\n").pop() : __("Unable to complete check-in. Please try again.");
@@ -245,7 +249,9 @@ vulero_biometric_attendance.pages.BiometricCheckin = class {
 				message,
 				title: __("Check-In Failed"),
 			});
-		}).finally(() => {
+		});
+
+		request.always(function () {
 			this.capture_in_progress = false;
 			if (this.stream) {
 				this.set_camera_buttons(true);
